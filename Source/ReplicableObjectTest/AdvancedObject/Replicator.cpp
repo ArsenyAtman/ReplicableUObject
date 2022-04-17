@@ -81,7 +81,7 @@ TArray<FObjectProperty*> UReplicator::FindObjectPropertiesForReplication(TFieldI
 		}
 	}
 
-	return Properties;
+	return OutProperties;
 }
 	
 TArray<FArrayProperty*> UReplicator::FindArrayPropertiesForReplication(TFieldIterator<FArrayProperty> Iterator)
