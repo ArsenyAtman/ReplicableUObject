@@ -22,8 +22,14 @@ class REPLICABLEOBJECTTEST_API UReplicator : public UObject
 
 public:
 
+	/**
+	 * Setup this object for its owner.
+	 */
 	virtual void Initialize(class UObject* ReplicatorOwner);
 
+	/**
+	 * Replicate subobjects of the owner.
+	 */
 	virtual void ReplicateSubobjectsOfOwner(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags, bool& OutWroteSomething);
 
 private:

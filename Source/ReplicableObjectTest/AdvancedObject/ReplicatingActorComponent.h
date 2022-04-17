@@ -12,14 +12,18 @@ class REPLICABLEOBJECTTEST_API UReplicatingActorComponent : public UActorCompone
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
+	// Sets default values for this component's properties.
 	UReplicatingActorComponent();
 
+	// Override for the support of ReplicableObjects.
 	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags) override;
 
-private:
+protected:
 
+	// Override for the replicator setup.
 	virtual void BeginPlay() override;
+
+private:
 
 	UPROPERTY()
 	class UReplicator* Replicator = nullptr;

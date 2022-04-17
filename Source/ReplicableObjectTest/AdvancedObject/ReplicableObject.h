@@ -7,7 +7,7 @@
 #include "ReplicableObject.generated.h"
 
 /**
- * 
+ * Object with support of replication and RPC's.
  */
 UCLASS(BlueprintType, Blueprintable)
 class REPLICABLEOBJECTTEST_API UReplicableObject : public UObject
@@ -16,26 +16,27 @@ class REPLICABLEOBJECTTEST_API UReplicableObject : public UObject
 
 public:
 
+	// Override for the initial setup of this object.
 	virtual void PostInitProperties() override;
 
-	// overrides for Replication of properties
-
+	// Overrides for the support of replicable propeerties.
 	virtual bool IsSupportedForNetworking() const override { return true; }
-	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 
-	// overrides for RPCs
-
+	// Overrides for the support of RPC's
 	virtual bool CallRemoteFunction(UFunction* Function, void* Parameters, struct FOutParmRec* OutParameters, FFrame* Stack) override;
-
  	virtual int32 GetFunctionCallspace(UFunction* Function, FFrame* Stack) override;
 
-	// replicate all ReplicableObjects that are subobjects of this
-
+	/**
+	 * Allows to replicate sub-ReplicableObjects that have been marked for replication.
+	 */
 	virtual void ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags, bool& OutWroteSomething);
 
 protected:
 
+	/**
+	 * The first outer actor that was found by following the chain of outers for this object.
+	 */
 	UFUNCTION(BlueprintGetter)
 	class AActor* GetFirstOuterActor() const { return FirstOuterActor; }
 

@@ -11,6 +11,7 @@ void UReplicableObject::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
+    // Add BP properties to replication.
     UBlueprintGeneratedClass* BPClass = Cast<UBlueprintGeneratedClass>(GetClass());
     if (BPClass)
     {
@@ -22,11 +23,12 @@ void UReplicableObject::PostInitProperties()
 {
     Super::PostInitProperties();
 
+    // Find and set the first outer actor for this object.
     FirstOuterActor = FindFirstOuterActor();
 
+    // Setup the replicator if the FirstOuterActor is valid.
     if(GetFirstOuterActor() && GetFirstOuterActor()->GetWorld())
     {
-        UKismetSystemLibrary::PrintString(GetWorld(), GetName() + " CreateRepl");
         Replicator = NewObject<UReplicator>(this);
         Replicator->Initialize(this);
     }
@@ -35,6 +37,7 @@ void UReplicableObject::PostInitProperties()
 
 void UReplicableObject::ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags, bool& OutWroteSomething)
 {
+    // Delegate all the job to the Replicatior.
     Replicator->ReplicateSubobjectsOfOwner(Channel, Bunch, RepFlags, OutWroteSomething);
 }
 
@@ -69,18 +72,23 @@ AActor* UReplicableObject::FindFirstOuterActor()
     UObject* Outer = GetOuter();
     while(IsValid(Outer))
     {
+        // If the next outer is ActorComponent...
         UActorComponent* ActorComponent = Cast<UActorComponent>(Outer);
         if(IsValid(ActorComponent))
         {
+            // than return its owner.
             return ActorComponent->GetOwner();
         }
         
+        // If the next outer is Actor...
         AActor* Actor = Cast<AActor>(Outer);
         if (IsValid(Actor))
         {
+            // than return it.
             return Actor;
         }
 
+        // Go to the next outer.
         Outer = Outer->GetOuter();
     }
 

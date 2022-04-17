@@ -12,6 +12,7 @@ UReplicatingActorComponent::UReplicatingActorComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
+	// This component is replicated by default.
 	SetIsReplicatedByDefault(true);
 
 }
@@ -20,6 +21,7 @@ void UReplicatingActorComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// Setup the replicatior.
 	Replicator = NewObject<UReplicator>(this);
 	Replicator->Initialize(this);
 
@@ -29,6 +31,7 @@ bool UReplicatingActorComponent::ReplicateSubobjects(class UActorChannel* Channe
 {
 	bool WroteSomething = Super::ReplicateSubobjects(Channel, Bunch, RepFlags);
 
+	// Delegate all the job to the Replicatior.
 	Replicator->ReplicateSubobjectsOfOwner(Channel, Bunch, RepFlags, WroteSomething);
 
 	return WroteSomething;
