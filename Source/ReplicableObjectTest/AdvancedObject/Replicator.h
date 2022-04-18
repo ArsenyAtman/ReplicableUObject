@@ -6,6 +6,9 @@
 #include "UObject/NoExportTypes.h"
 #include "Replicator.generated.h"
 
+/**
+ * Parsing properties with ReplicableObjects of the owner and adding them to the ActorChannel.
+ */
 UCLASS()
 class REPLICABLEOBJECTTEST_API UReplicator : public UObject
 {
