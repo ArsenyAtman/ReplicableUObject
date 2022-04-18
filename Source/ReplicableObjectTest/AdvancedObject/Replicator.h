@@ -6,14 +6,6 @@
 #include "UObject/NoExportTypes.h"
 #include "Replicator.generated.h"
 
-USTRUCT()
-struct FPropertiesForReplication
-{
-	GENERATED_BODY()
-
-	
-};
-
 UCLASS()
 class REPLICABLEOBJECTTEST_API UReplicator : public UObject
 {
