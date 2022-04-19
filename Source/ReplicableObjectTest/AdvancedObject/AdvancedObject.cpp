@@ -28,16 +28,6 @@ void UAdvancedObject::PostInitProperties()
     }
 }
 
-void UAdvancedObject::BeginDestroy()
-{
-    Super::BeginDestroy();
-
-    if(IsValid(GetFirstOuterActor()) && IsValid(GetFirstOuterActor()->GetWorld()))
-    {
-        EndPlay();
-    }
-}
-
 UWorld* UAdvancedObject::GetWorld() const
 {
     if(IsValid(GetFirstOuterActor()))
@@ -50,5 +40,11 @@ UWorld* UAdvancedObject::GetWorld() const
 
 void UAdvancedObject::Destroy()
 {
+    this->ConditionalBeginDestroy();
+}
+
+void UAdvancedObject::MulticastBeginDestroy_Implementation()
+{
+    EndPlay();
     this->ConditionalBeginDestroy();
 }

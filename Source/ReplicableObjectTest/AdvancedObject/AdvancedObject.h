@@ -29,9 +29,6 @@ public:
 	// Overrides for the support of the BeginPlay and EventConstruct methods.
 	virtual void PostInitProperties() override;
 
-	// Override for the EndPlay method.
-	virtual void BeginDestroy() override;
-
 	// Override for the support of static functions in BP's.
 	virtual class UWorld* GetWorld() const override;
 
@@ -69,5 +66,10 @@ protected:
 	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	bool bCanEverTick = true;
+
+private:
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastBeginDestroy();
 
 };
