@@ -21,11 +21,6 @@ class REPLICABLEOBJECTTEST_API UAdvancedObject : public UReplicableObject, publi
 	
 public:
 
-	// Overrides for the support of the ObjectTick method.
-	virtual void Tick(float DeltaTime) override;
-	virtual bool IsTickable() const override;
-	virtual TStatId GetStatId() const override;
-
 	// Overrides for the support of the BeginPlay and EventConstruct methods.
 	virtual void PostInitProperties() override;
 
@@ -71,5 +66,13 @@ private:
 
 	UFUNCTION(NetMulticast, Reliable)
 	void MulticastBeginDestroy();
+
+	void SetupTick();
+	void RemoveTick();
+	
+	bool TickerTick(float DeltaTime);
+
+	FTickerDelegate TickDelegate;
+	FTSTicker::FDelegateHandle TickDelegateHandle;
 
 };
