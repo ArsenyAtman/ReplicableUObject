@@ -11,6 +11,7 @@ There are two main features of the ReplicableObject class:
 The only one restriction is that object replication is possible only for UPROPERTIES of the ReplicatingActorComponent class.
 
 Short description of each class:
+- ReplicatingActor - an actor that provides replication for its subobjects.
 - ReplicatingActorComponent - an actor component that provides replication for its subobjects.
 - ReplicableObject - an object that replicates with its subobjects.
 - Replicator - an object that parses properties of its owner and passes them to an ActorChannel of the first outer actor during the repllication process.
