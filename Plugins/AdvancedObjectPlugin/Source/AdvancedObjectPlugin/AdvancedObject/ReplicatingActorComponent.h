@@ -3,17 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "ReplicatingActor.generated.h"
+#include "Components/ActorComponent.h"
+#include "ReplicatingActorComponent.generated.h"
 
-UCLASS( BlueprintType, Blueprintable )
-class REPLICABLEOBJECTTEST_API AReplicatingActor : public AActor
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), BlueprintType, Blueprintable )
+class ADVANCEDOBJECTPLUGIN_API UReplicatingActorComponent : public UActorComponent
 {
 	GENERATED_BODY()
-	
+
 public:	
-	// Sets default values for this actor's properties
-	AReplicatingActor();
+	// Sets default values for this component's properties.
+	UReplicatingActorComponent();
 
 	// Override for the support of ReplicableObjects.
 	virtual bool ReplicateSubobjects(class UActorChannel* Channel, class FOutBunch* Bunch, FReplicationFlags* RepFlags) override;

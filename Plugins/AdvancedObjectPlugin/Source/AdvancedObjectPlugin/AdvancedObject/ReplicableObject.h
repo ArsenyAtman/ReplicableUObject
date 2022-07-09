@@ -10,7 +10,7 @@
  * Object with support of replication and RPC's.
  */
 UCLASS(BlueprintType, Blueprintable)
-class REPLICABLEOBJECTTEST_API UReplicableObject : public UObject
+class ADVANCEDOBJECTPLUGIN_API UReplicableObject : public UObject
 {
 	GENERATED_BODY()
 

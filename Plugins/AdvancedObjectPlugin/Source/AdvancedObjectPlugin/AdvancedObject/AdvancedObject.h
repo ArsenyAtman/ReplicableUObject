@@ -15,7 +15,7 @@
  * - Destroy
  */
 UCLASS()
-class REPLICABLEOBJECTTEST_API UAdvancedObject : public UReplicableObject
+class ADVANCEDOBJECTPLUGIN_API UAdvancedObject : public UReplicableObject
 {
 	GENERATED_BODY()
 	
@@ -33,8 +33,19 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Destroy();
 
+	/**
+	 * Change the outer of this object
+	 * @param NewOuter - The new outer object.
+	 */
 	UFUNCTION(BlueprintCallable)
 	void ChangeOuter(class UObject* NewOuter);
+
+	/**
+	 * Get an object with class defaults.
+	 * @return The default object.
+	 */
+	UFUNCTION(BlueprintPure)
+	static class UObject* GetDefaultObject();
 
 protected:
 

@@ -10,7 +10,7 @@
  * Parsing properties with ReplicableObjects of the owner and adding them to the ActorChannel.
  */
 UCLASS()
-class REPLICABLEOBJECTTEST_API UReplicator : public UObject
+class ADVANCEDOBJECTPLUGIN_API UReplicator : public UObject
 {
 
 	GENERATED_BODY()
