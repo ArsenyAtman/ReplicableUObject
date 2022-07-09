@@ -46,21 +46,21 @@ protected:
 	 * The first outer actor that was found by following the chain of outers for this object.
 	 * @return The first outer actor.
 	 */
-	UFUNCTION(BlueprintGetter, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintGetter, meta = (BlueprintProtected), Category = "ReplicableObject")
 	class AActor* GetFirstOuterActor() const { return FirstOuterActor; }
 
 	/**
 	 * Returns whether the owner actor of this object has network authority.
 	 * @return Has this object authority.
 	 */
-	UFUNCTION(BlueprintPure, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintPure, meta = (BlueprintProtected), Category = "ReplicableObject")
 	bool HasAuthority() const;
 
 	/**
 	 * Returns the NetRole of the owner actor of this object.
 	 * @return The net role of the owner.
 	 */
-	UFUNCTION(BlueprintPure, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintPure, meta = (BlueprintProtected), Category = "ReplicableObject")
 	ENetRole GetNetRole() const;
 
 	/**
@@ -74,7 +74,7 @@ private:
 	UPROPERTY()
 	class UReplicator* Replicator = nullptr;
 
-	UPROPERTY(BlueprintGetter = GetFirstOuterActor)
+	UPROPERTY(BlueprintGetter = GetFirstOuterActor, Category = "ReplicableObject")
 	class AActor* FirstOuterActor = nullptr;
 
 	class AActor* FindFirstOuterActor();

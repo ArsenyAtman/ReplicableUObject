@@ -30,21 +30,21 @@ public:
 	/**
 	 * Immediately destroy the object.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "AdvancedObject")
 	void Destroy();
 
 	/**
 	 * Change the outer of this object
 	 * @param NewOuter - The new outer object.
 	 */
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "AdvancedObject")
 	void ChangeOuter(class UObject* NewOuter);
 
 	/**
 	 * Get an object with class defaults.
 	 * @return The default object.
 	 */
-	UFUNCTION(BlueprintPure)
+	UFUNCTION(BlueprintPure, Category = "AdvancedObject")
 	static class UObject* GetDefaultObject();
 
 protected:
@@ -52,14 +52,14 @@ protected:
 	/**
 	 * Called after object creation.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected), Category = "AdvancedObject")
 	void BeginPlay();
 	virtual void BeginPlay_Implementation() { return; }
 
 	/**
 	 * Called before object destruction.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected), Category = "AdvancedObject")
 	void EndPlay();
 	virtual void EndPlay_Implementation() { return; }
 
@@ -67,14 +67,14 @@ protected:
 	 * Called every frame.
 	 * @param DeltaTime - A tick delta time in seconds.
 	 */
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected))
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, meta = (BlueprintProtected), Category = "AdvancedObject")
 	void ObjectTick(float DeltaTime);
 	virtual void ObjectTick_Implementation(float DeltaTime) { return; }
 
 	/**
 	 * Enable/Disable ObjectTick method.
 	 */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (BlueprintProtected))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, meta = (BlueprintProtected), Category = "AdvancedObject")
 	bool bCanEverTick = true;
 
 private:
