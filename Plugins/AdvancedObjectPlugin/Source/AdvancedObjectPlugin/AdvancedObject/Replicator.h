@@ -6,6 +6,8 @@
 #include "UObject/NoExportTypes.h"
 #include "Replicator.generated.h"
 
+//struct FPropertyForReplication
+
 /**
  * Parsing properties with ReplicableObjects of the owner and adding them to the ActorChannel.
  */
@@ -31,6 +33,7 @@ private:
 
 	TArray<class FObjectProperty*> FindObjectPropertiesForReplication(TFieldIterator<class FObjectProperty> Iterator);
 	TArray<class FArrayProperty*> FindArrayPropertiesForReplication(TFieldIterator<class FArrayProperty> Iterator);
+	TArray<class FObjectProperty*> FindObjectPropertiesInStructsForReplication(TFieldIterator<class FStructProperty> Iterator);
 	
 	TArray<class FObjectProperty*> ObjectProperties;
 	TArray<class FArrayProperty*> ArrayProperties;
