@@ -32,11 +32,6 @@ void UReplicator::FindPropertiesForReplication(UClass* Class)
 	TFieldIterator<FArrayProperty> ArraysIterator(Class);
 	// Find replicable properties.
 	ArrayProperties = FindArrayPropertiesForReplication(ArraysIterator);
-
-	// Create an iterator for struct properties of the class.
-	TFieldIterator<FStructProperty> StructsIterator(Class);
-	// Find replicable properties.
-	ObjectProperties.Append(FindObjectPropertiesInStructsForReplication(StructsIterator));
 }
 
 TArray<FObjectProperty*> UReplicator::FindObjectPropertiesForReplication(TFieldIterator<FObjectProperty> Iterator)
@@ -50,7 +45,7 @@ TArray<FObjectProperty*> UReplicator::FindObjectPropertiesForReplication(TFieldI
 		// If the property has the Replicated or RepNotify flags...
 		if((ObjectProperty->GetPropertyFlags() & EPropertyFlags::CPF_Net) || (ObjectProperty->GetPropertyFlags() & EPropertyFlags::CPF_RepNotify))
 		{
-			// then add it to the array.
+			// than add it to the array.
 			OutProperties.Add(ObjectProperty);
 		}
 	}
@@ -69,36 +64,11 @@ TArray<FArrayProperty*> UReplicator::FindArrayPropertiesForReplication(TFieldIte
 		// If the property has the Replicated or RepNotify flags...
 		if((ArrayProperty->GetPropertyFlags() & EPropertyFlags::CPF_Net) || (ArrayProperty->GetPropertyFlags() & EPropertyFlags::CPF_RepNotify))
 		{
-			// then add it to the array.
+			// than add it to the array.
 			OutProperties.Add(ArrayProperty);
 		}
 	}
 
-	return OutProperties;
-}
-
-TArray<FObjectProperty*> UReplicator::FindObjectPropertiesInStructsForReplication(TFieldIterator<FStructProperty> Iterator)
-{
-	TArray<FObjectProperty*> OutProperties;
-	for(; Iterator; ++Iterator)
-	{
-		// Get the current struct property.
-		FStructProperty* StructProperty = *Iterator;
-
-		// If the property has the Replicated or RepNotify flags...
-		if ((StructProperty->GetPropertyFlags() & EPropertyFlags::CPF_Net) || (StructProperty->GetPropertyFlags() & EPropertyFlags::CPF_RepNotify))
-		{
-			// then parse it and add the object properties to the array.
-			TFieldIterator<FObjectProperty> ObjectsIterator(StructProperty->Struct);
-			for (; ObjectsIterator; ++ObjectsIterator)
-			{
-				// Get and add the current object property.
-				FObjectProperty* ObjectProperty = *ObjectsIterator;
-				OutProperties.Add(ObjectProperty);
-			}
-		}
-	}
-	
 	return OutProperties;
 }
 
@@ -107,7 +77,7 @@ void UReplicator::ReplicateObjects(class UActorChannel* Channel, class FOutBunch
 	for (FObjectProperty* ObjectProperty : ObjectProperties)
 	{
 		// Get the property value.
-		UObject* Object = ObjectProperty->GetObjectPropertyValue(ObjectProperty->ContainerPtrToValuePtr<UObject>(GetOuter());
+		UObject* Object = ObjectProperty->GetObjectPropertyValue(ObjectProperty->ContainerPtrToValuePtr<UObject>(GetOuter()));
 		
 		ReplicateObject(Object, Channel, Bunch, RepFlags, OutWroteSomething);
 	}
@@ -131,19 +101,11 @@ void UReplicator::ReplicateObject(UObject* Object, UActorChannel* Channel, FOutB
 {
 	// If the object is replicable and is not being replicated already...
 	UReplicableObject* ReplicableObject = Cast<UReplicableObject>(Object);
-
-	if(IsValid(ReplicableObject))
-	{
-		UKismetSystemLibrary::PrintString(GetWorld(), Object->GetName());
-	}
-
 	if(IsValid(ReplicableObject) && !ReplicableObject->GetIsReplicatingNow())
 	{
-		// then replicate it...
+		// than replicate it...
 		OutWroteSomething |= Channel->ReplicateSubobject(ReplicableObject, *Bunch, *RepFlags);
 		// and its subobjects.
 		ReplicableObject->ReplicateSubobjects(Channel, Bunch, RepFlags, OutWroteSomething);
-
-		UKismetSystemLibrary::PrintString(GetWorld(), Object->GetName());
 	}
 }
