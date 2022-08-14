@@ -45,7 +45,7 @@ public:
 	 * @return The default object.
 	 */
 	UFUNCTION(BlueprintPure, Category = "AdvancedObject")
-	static class UObject* GetDefaultObject();
+	class UObject* GetDefaultObject();
 
 protected:
 
